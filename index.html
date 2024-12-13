@@ -18,7 +18,20 @@
     <![endif]-->       
     <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">  -->
 </head> 
+$(document).ready(function () {
+    // 初始化 PrettyPhoto
+    $("a[rel^='prettyPhoto']").prettyPhoto({
+        theme: "light_square", // 使用的主题
+        overlay_gallery: false, // 是否显示画廊
+        social_tools: false, // 是否显示社交工具
+        hook: 'data-rel', // 可选：自定义 hook
+    });
 
+    // 点击背景关闭 PrettyPhoto
+    $(document).on("click", ".pp_overlay", function () {
+        $.prettyPhoto.close(); // 调用 PrettyPhoto 的关闭方法
+    });
+});
 <body id="home">
     <header id="header">
         <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
