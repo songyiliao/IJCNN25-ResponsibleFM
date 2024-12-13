@@ -18,21 +18,34 @@
     <![endif]-->       
     <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">  -->
 </head> 
-$(document).ready(function () {
-    // 初始化 PrettyPhoto
-    $("a[rel^='prettyPhoto']").prettyPhoto({
-        theme: "light_square", // 使用的主题
-        overlay_gallery: false, // 是否显示画廊
-        social_tools: false, // 是否显示社交工具
-        hook: 'data-rel', // 可选：自定义 hook
-    });
 
-    // 点击背景关闭 PrettyPhoto
-    $(document).on("click", ".pp_overlay", function () {
-        $.prettyPhoto.close(); // 调用 PrettyPhoto 的关闭方法
-    });
-});
 <body id="home">
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const popup = document.getElementById("popup-preview");
+            const popupImage = document.getElementById("popup-image");
+            const previewButtons = document.querySelectorAll(".preview");
+
+            // 打开弹出框
+            previewButtons.forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault(); // 阻止默认链接跳转
+                    const imageSrc = this.getAttribute("href"); // 获取图片路径
+                    popupImage.src = imageSrc; // 设置弹出框的图片路径
+                    popup.style.display = "block"; // 显示弹出框
+                });
+            });
+
+            // 点击背景关闭弹出框
+            popup.addEventListener("click", function (e) {
+                if (e.target === popup) {
+                    popup.style.display = "none"; // 隐藏弹出框
+                    popupImage.src = ""; // 清空图片路径
+                }
+            });
+        });
+    </script>
+    
     <header id="header">
         <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
             <div class="container">
@@ -269,10 +282,18 @@ $(document).ready(function () {
                         <img class="img-responsive" src="images/portfolio/YS.jpg" alt="">
                         <p class="tight-spacing">Yiliao Song <br> (The University of Adelaide, AU)</p><!-- name -->
                         <div class="portfolio-info"> 
-                            <a class="preview" href="images/portfolio/b-YS.png" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                            <a class="preview" href="images/portfolio/b-YS.png"><i class="fa fa-eye"></i> </a>
                         </div>                        
                     </div>
-                </div><!--/.portfolio-item-->
+                </div>
+                <!--/.portfolio-item-->
+                <!-- 弹出框 -->
+                <div id="popup-preview" class="popup-overlay">
+                    <div class="popup-content">
+                        <!-- 这里的图片将动态加载 -->
+                        <img id="popup-image" src="mages/portfolio/b-YS.png" alt="Preview Image">
+                    </div>
+                </div>
 
                 <div class="portfolio-item mobile development">
                     <div class="portfolio-item-inner">
